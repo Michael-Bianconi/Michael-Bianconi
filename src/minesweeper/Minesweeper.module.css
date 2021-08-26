@@ -1,0 +1,134 @@
+.Root {
+    text-align: center;
+}
+
+.AdminBar {
+    text-align: center;
+}
+
+.AdminBar > * {
+    margin: 0 10px;
+}
+
+.BombsRemaining {
+}
+
+.Timer {
+    color: red;
+}
+
+.Restart {
+}
+
+.Board {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0 auto;
+}
+
+.Tile_container {
+    border: none;
+    padding: 0;
+    line-height: 0;
+}
+
+.Tile_container_hidden {
+    border: 1px solid gray
+}
+
+.Tile {
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+}
+
+.Tile:hover {
+    background-color: red;
+}
+
+.Tile_revealed {
+    background-color: white;
+}
+
+.Tile_unrevealed {
+    background-color: lightgray;
+}
+
+.Tile_explosion {
+    background-color: red;
+}
+
+.Tile_bombCount1 {
+    color: blue;
+}
+
+.Tile_bombCount2 {
+    color: green;
+}
+
+.Tile_bombCount3 {
+    color: red;
+}
+
+.Tile_bombCount4 {
+    color: purple;
+}
+
+.Tile_bombCount5 {
+    color: darkred;
+}
+
+.Tile_bombCount6 {
+    color: teal;
+}
+
+.Tile_bombCount7 {
+    color: black;
+}
+
+.Tile_bombCount8 {
+    color: gray;
+}
+
+/** SETUP.JS */
+.SetupContainer {
+    text-align: center;
+}
+
+.MainTable {
+    border-collapse: collapse;
+    border-spacing: 4px;
+    margin: auto;
+    width: 400px;
+    text-align: center;
+    table-layout: fixed;
+}
+
+.MainTable tbody tr td {
+    border-bottom: 1px solid black;
+    padding: 4px 0;
+}
+
+.WidthHeightInput {
+    width: 50px;
+}
+
+.StartButton {
+    background-color: white;
+    border: none;
+    height: 20px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.StartButton:hover {
+    background-color: black;
+    color: white;
+}
+
