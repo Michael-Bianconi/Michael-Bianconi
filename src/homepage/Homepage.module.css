@@ -1,0 +1,59 @@
+.section {
+    background-color: white;
+    border: 1px solid black;
+    margin: 10px auto;
+    max-width: 1000px;
+    padding: 10px;
+    width: 100%;
+}
+
+.aboutMeContainer {
+    display: flex;
+}
+
+.aboutMeImg {
+    border: 1px solid black;
+    border-radius: 6px;
+    display: inline-block;
+    height: 25%;
+    width: 25%;
+}
+
+.aboutMeText {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.projectBlurbRow {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.projectBlurbContainer {
+    display: inline-block;
+    text-align: center;
+}
+
+.projectBlurbContainer * {
+    box-sizing: border-box;
+}
+
+.projectBlurbContainer .linkImgContainer {
+    margin: auto;
+}
+
+.projectBlurbContainer .linkImgContainer .link img {
+    display: block;
+    height: 115px;
+    width: 115px;
+}
+
+.projectBlurbContainer .text {
+    color: black;
+    text-decoration: none;
+}
+
+.projectBlurbContainer .text:hover {
+    color: #007fde;
+}

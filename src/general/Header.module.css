@@ -1,0 +1,38 @@
+.container {
+    background-color: white;
+    border-bottom: 1px solid black;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.container * {
+    box-sizing: border-box;
+}
+
+ul {
+    display: inline-block;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    display: inline-block;
+    height: 100%;
+    margin: 0 14px;
+}
+
+.heavy {
+    font-weight: bold;
+}
+
+.link {
+    color: #007fde;
+    display: inline-block;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    padding: 14px 16px;
+    text-decoration: none;
+}

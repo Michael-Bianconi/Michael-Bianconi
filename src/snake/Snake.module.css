@@ -1,0 +1,20 @@
+.BoardTable {
+    border: 1px solid black;
+}
+
+.BoardTable tbody tr td {
+    width: 10px;
+    height: 10px;
+}
+
+.Apple {
+    background-color: red;
+}
+
+.SnakeBodyPart {
+    background-color: green;
+}
+
+.SnakeHead {
+    background-color: black;
+}

@@ -1,5 +1,21 @@
-.Root {
+.MainContainer {
     text-align: center;
+}
+
+.GameContainer {
+    background-color: white;
+    border: 1px solid black;
+    display: inline-block;
+    margin: auto;
+    padding: 10px;
+}
+
+.title {
+    background-color: white;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
 }
 
 .AdminBar {
@@ -96,39 +112,25 @@
     color: gray;
 }
 
-/** SETUP.JS */
-.SetupContainer {
-    text-align: center;
-}
-
-.MainTable {
-    border-collapse: collapse;
-    border-spacing: 4px;
+.setupContainer {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
     margin: auto;
+    padding: 10px;
     width: 400px;
     text-align: center;
-    table-layout: fixed;
 }
 
-.MainTable tbody tr td {
-    border-bottom: 1px solid black;
-    padding: 4px 0;
-}
-
-.WidthHeightInput {
-    width: 50px;
-}
-
-.StartButton {
+.difficultyButton {
     background-color: white;
-    border: none;
-    height: 20px;
-    transition: background-color 0.3s;
-    width: 100%;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
 }
 
-.StartButton:hover {
-    background-color: black;
-    color: white;
+.difficultyButton:hover {
+    color: var(--blue);
+    cursor: pointer;
 }
-
