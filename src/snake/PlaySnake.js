@@ -2,51 +2,83 @@ import React from "react";
 import Snake from "./snake";
 import styles from "./Snake.module.css";
 
+/**
+ * The view for Snake.
+ *
+ * Props:
+ *      None
+ * State:
+ *      score: The number of apples eaten.
+ *      ready: True when difficulty has been chosen.
+ *      speed: The interval speed, determined by difficulty.
+ *      intervalId: The intervalId, so it can be cleared later.
+ *      snake: The snake game.
+ *
+ * TODO Win screen
+ */
 export default class PlaySnake extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            score: 0,
             ready: false,
             speed: NaN,
             intervalId: null,
             snake: null,
         };
 
-        this.Setup = this.Setup.bind(this);
         this.Board = this.Board.bind(this);
     }
 
     render() {
-        if (this.state.snake) {
-            if (!this.state.snake.lost) {
-                return <this.Board snake={this.state.snake}/>
-            } else {
-                return <span>You lost</span>
-            }
-        } else {
-            return <this.Setup />
-        }
+        return (
+            <div className={styles.MainContainer}>
+                <h1 className={styles.title}>Snake</h1>
+                {this.state.snake
+                    ?
+                    <div className={styles.GameContainer}>
+                        {this.state.snake.lost ?
+                            <div className={styles.gameOverContainer}>
+                                <span>Score: {this.state.score}</span>
+                                <span>You lost!</span>
+                                <button className={styles.Restart} onClick={() => this.restart()}>Restart</button>
+                            </div>
+                            :
+                            <div>
+                                <span>Score: {this.state.score}</span>
+                            </div>
+                        }
+                        <span>Use arrow keys to move</span>
+                        <this.Board snake={this.state.snake} />
+                    </div>
+                    :
+                    <Setup onClick={(s) => this.ready(s)} />
+                }
+            </div>
+        );
     }
 
-
+    /**
+     * Add an event listener to the document to handle input.
+     */
     componentDidMount() {
         document.addEventListener("keydown", (e) => {
             if (this.state.snake) {
                 if (this.state.ready) {
                     this.start();
                 }
-                switch (e.keyCode) {  // TODO
-                    case 38:
+                switch (e.code) {
+                    case 'ArrowUp':
                         this.state.snake.up();
                         break;
-                    case 40:
+                    case 'ArrowDown':
                         this.state.snake.down();
                         break;
-                    case 37:
+                    case 'ArrowLeft':
                         this.state.snake.left();
                         break;
-                    case 39:
+                    case 'ArrowRight':
                         this.state.snake.right();
                         break;
                     default: // Do nothing
@@ -55,71 +87,66 @@ export default class PlaySnake extends React.Component {
         });
     }
 
+    /**
+     * Clears the interval.
+     */
     componentWillUnmount() {
         if (this.state.intervalId) {
             clearInterval(this.state.intervalId);
         }
     }
 
+    /**
+     * Creates the Board table.
+     * @returns {JSX.Element} The table representing the Board.
+     * @constructor
+     */
     Board() {
-        let getRow = (row) => {
-            let tds = [];
-            for (let col = 0; col < this.state.snake.width; col++) {
-                let className;
-                if (this.state.snake.headAtLocation(row, col)) {
-                    className = styles.SnakeHead;
-                } else if (this.state.snake.bodyPartAtLocation(row, col)) {
-                    className = styles.SnakeBodyPart;
-                } else if (this.state.snake.appleAtLocation(row, col)) {
-                    className = styles.Apple;
-                }
-
-                tds.push(<td key={col} className={className}/>);
-            }
-            return <tr key={row}>{tds}</tr>;
-        }
-
-        let getBody = () => {
-            let trs = [];
-            for (let row = 0; row < this.state.snake.height; row++) {
-                trs.push(getRow(row));
-            }
-            return <tbody>{trs}</tbody>;
-        }
-
         return (
             <table className={styles.BoardTable}>
-                {getBody()}
+                <tbody>
+                {[...Array(this.state.snake.height)].map((_, row) =>
+                    <tr key={row}>
+                        {[...Array(this.state.snake.width)].map((_, col) => {
+                            let className;
+                            if (this.state.snake.headAtLocation(row, col)) {
+                                className = styles.SnakeHead;
+                            } else if (this.state.snake.bodyPartAtLocation(row, col)) {
+                                className = styles.SnakeBodyPart;
+                            } else if (this.state.snake.appleAtLocation(row, col)) {
+                                className = styles.Apple;
+                            }
+                            return <td key={col} className={className}/>;
+                        }
+                        )}
+                    </tr>
+                )}
+                </tbody>
             </table>
         );
     }
 
-    Setup() {
-        return (
-            <div>
-                <span>
-                    <button onClick={() => this.onDifficultySelection("EASY")}>Easy</button>
-                    <button onClick={() => this.onDifficultySelection("MEDIUM")}>Medium</button>
-                    <button onClick={() => this.onDifficultySelection("HARD")}>Hard</button>
-                </span>
-            </div>
-        );
-    }
+    /**
+     * Prepares the state for game start. Called after difficulty has been chosen.
+     * @param speed Interval speed (milliseconds).
+     */
+    ready(speed) {
 
-    onDifficultySelection(difficulty) {
-        let speed = difficulty === 'EASY' ? 200
-            : difficulty === 'MEDIUM' ? 150
-                : 100;
+        let onEat = () => {
+            let newState = Object.assign({}, this.state);
+            newState.score++;
+            this.setState(newState);
+        }
 
-        this.ready(new Snake(13, 13), speed);
-    }
+        let onLose = () => {
+            clearInterval(this.state.intervalId);
+        }
 
-    ready(snake, speed) {
         this.setState({
             ready: true,
             speed: speed,
             intervalId: null,
-            snake: snake,
+            snake: new Snake(13, 13, () => onEat(), () => onLose()),
         });
     }
 
@@ -144,7 +171,33 @@ export default class PlaySnake extends React.Component {
             snake: this.state.snake,
         });
     }
+
+    /**
+     * Restarts the game.
+     */
+    restart() {
+        this.setState({
+            score: 0,
+            ready: false,
+            speed: NaN,
+            intervalId: null,
+            snake: null,
+        });
+    }
 }
 
-// TODO win
-// TODO styling
+/**
+ * Creates the difficulty selector.
+ * @param props onClick(speed)
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function Setup(props) {
+    return (
+        <div className={styles.setupContainer}>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(200)}>Easy</button>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(150)}>Medium</button>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(100)}>Hard</button>
+        </div>
+    )
+}

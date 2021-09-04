@@ -1,10 +1,52 @@
+.MainContainer {
+    text-align: center;
+}
+
+.GameContainer {
+    background-color: white;
+    border: 1px solid black;
+    display: inline-block;
+    margin: auto;
+    padding: 10px;
+}
+
+.gameOverContainer {
+    display: flex;
+    justify-content: space-around;
+    line-height: 30px;
+}
+
+.Restart {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-family: monospace;
+    line-height: 28px;
+    height: 30px;
+    text-align: center;
+}
+
+.Restart:hover {
+    color: var(--blue);
+    cursor: pointer;
+}
+
+
+.title {
+    background-color: white;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+}
+
 .BoardTable {
     border: 1px solid black;
 }
 
 .BoardTable tbody tr td {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
 }
 
 .Apple {
@@ -17,4 +59,27 @@
 
 .SnakeHead {
     background-color: black;
+}
+
+.setupContainer {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    padding: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.difficultyButton {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.difficultyButton:hover {
+    color: var(--blue);
+    cursor: pointer;
 }

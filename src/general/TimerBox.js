@@ -47,7 +47,7 @@ export default class TimerBox extends React.Component {
     }
 
     get timeString() {
-        return new Date(this.state.timeElapsed).toISOString().substr(11, 8);
+        return new Date(this.state.timeElapsed).toISOString().substr(14, 5);
     }
 
     render() {

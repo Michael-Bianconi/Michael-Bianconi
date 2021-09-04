@@ -2,7 +2,6 @@ import React, {createRef} from "react";
 import MineSweeper from "./minesweeper";
 import styles from "./Minesweeper.module.css";
 import TimerBox from "../general/TimerBox";
-import RestartButton from "../general/RestartButton";
 import FlagImg from "./flag.png";
 import BombImg from "./bomb.png";
 
@@ -13,9 +12,7 @@ export default class PlayMinesweeper extends React.Component {
         this.timerRef = createRef();
         this.state = {
             started: false,
-            won: false,
-            game: null,
-            bombsRemaining: -1
+            game: null
         };
     }
 
@@ -28,14 +25,14 @@ export default class PlayMinesweeper extends React.Component {
                     :
                     <div className={styles.GameContainer}>
                         <div className={styles.AdminBar}>
-                            <span className={styles.BombsRemaining}>{this.state.bombsRemaining}</span>
-                            <TimerBox className={styles.Timer} ref={this.timerRef}/>
-                            <RestartButton className={styles.Restart} onClick={() => this.restart()}/>
-                            <br />
+                            <div className={styles.AdminBarTop}>
+                                <TimerBox className={styles.Timer} ref={this.timerRef}/>
+                                <button className={styles.Restart} onClick={() => this.restart()}>Restart</button>
+                            </div>
                             <span>Shift-click to place a flag</span>
                         </div>
                         { this.state.won &&
-                            <VictoryScreen time={this.timerRef.current.timeString}/>
+                            <span>You won!</span>
                         }
                         <Board game={this.state.game}/>
                     </div>
@@ -176,22 +173,12 @@ const TEXT_COLOR = [
     null,
 ];
 
-function VictoryScreen({time}) {
-    return (
-        <div>
-            <span>You won!</span>
-            <br />
-            <span>{time}</span>
-        </div>
-    );
-}
-
 function Setup(props) {
     return (
         <div className={styles.setupContainer}>
-            <button className={styles.difficultyButton} onClick={() => props.onClick(10, 10, 0.2)}>Easy</button>
-            <button className={styles.difficultyButton} onClick={() => props.onClick(13, 13, 0.25)}>Medium</button>
-            <button className={styles.difficultyButton} onClick={() => props.onClick(16, 16, 0.3)}>Hard</button>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(8, 8, 10/(8*8))}>Easy</button>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(16, 16, 40/(16*16))}>Medium</button>
+            <button className={styles.difficultyButton} onClick={() => props.onClick(30, 16, 99/(16*30))}>Hard</button>
         </div>
     )
 }

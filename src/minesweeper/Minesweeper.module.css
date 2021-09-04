@@ -18,22 +18,41 @@
     max-width: 400px;
 }
 
-.AdminBar {
-    text-align: center;
+.AdminBarTop {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+.AdminBarTop * {
+    margin: 0 10px;
 }
 
 .AdminBar > * {
     margin: 0 10px;
 }
 
-.BombsRemaining {
-}
-
 .Timer {
-    color: red;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-family: monospace;
+    line-height: 28px;
+    padding: 0 4px;
 }
 
 .Restart {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-family: monospace;
+    line-height: 28px;
+    height: 30px;
+    text-align: center;
+}
+
+.Restart:hover {
+    color: var(--blue);
+    cursor: pointer;
 }
 
 .Board {
